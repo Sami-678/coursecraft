@@ -1,26 +1,106 @@
-@import "tailwindcss";
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Tailwind base ────────────────────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens (dark theme – default) ─────────────────────────────────── */
+:root[data-theme="dark"] {
+  --bg:           #0B0D12;
+  --surface:      #14171D;
+  --surface-2:    #1B1F27;
+  --border:       #262B35;
+  --text:         #EDEFF3;
+  --text-muted:   #8B92A3;
+  --accent:       #6C5CE7;
+  --accent-soft:  rgba(108, 92, 231, 0.16);
+  --amber:        #F2B134;
+  --amber-soft:   rgba(242, 177, 52, 0.14);
+  --red:          #FB6B6B;
+  --red-soft:     rgba(251, 107, 107, 0.14);
+  --green:        #22C55E;
+  --green-soft:   rgba(34, 197, 94, 0.14);
+  --shadow:       rgba(0, 0, 0, 0.45);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Design tokens (light theme) ─────────────────────────────────────────── */
+:root[data-theme="light"] {
+  --bg:           #F6F5FB;
+  --surface:      #FFFFFF;
+  --surface-2:    #FBFAFF;
+  --border:       #E2E0EF;
+  --text:         #1B1D24;
+  --text-muted:   #6E7180;
+  --accent:       #6C5CE7;
+  --accent-soft:  rgba(108, 92, 231, 0.10);
+  --amber:        #B8780B;
+  --amber-soft:   rgba(242, 177, 52, 0.18);
+  --red:          #D8474B;
+  --red-soft:     rgba(216, 71, 75, 0.12);
+  --green:        #16A34A;
+  --green-soft:   rgba(22, 163, 74, 0.12);
+  --shadow:       rgba(20, 20, 30, 0.10);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base resets & global styles ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ─── Responsive sidebar collapse ─────────────────────────────────────────── */
+@media (max-width: 780px) {
+  .sidebar-responsive {
+    width: 74px !important;
+    padding: 18px 10px !important;
+  }
+  .sidebar-responsive .sidebar-label,
+  .sidebar-responsive .nav-text,
+  .sidebar-responsive .brand-name {
+    display: none !important;
+  }
+  .sidebar-responsive .nav-link {
+    justify-content: center !important;
+    padding: 11px !important;
+    border-left: none !important;
+  }
+  .sidebar-responsive .nav-link.active {
+    box-shadow: inset 3px 0 0 var(--accent);
+    border-left: none !important;
+  }
+  .topbar-responsive,
+  .main-responsive {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+  .topbar-responsive {
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
 }
